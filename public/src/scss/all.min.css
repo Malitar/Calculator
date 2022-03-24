@@ -1,1 +1,1 @@
-*,*::after,*::before{margin:0;padding:0;box-sizing:border-box;background-color:#2C2C2C}
+*,*::after,*::before{margin:0;padding:0;box-sizing:border-box;background-color:#2C2C2C}.calculator{display:flex;align-items:center;justify-content:center;height:90vh}.calculator .calculator-body{height:500px;width:300px;border:3px solid #ABC}.calculator .calculator-body .display{display:flex;align-items:center;justify-content:flex-end;border:1px solid #ABC;height:150px;padding-right:16px}
