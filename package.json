@@ -1,0 +1,27 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "Final Odin-Project Project",
+  "main": "index.js",
+  "devDependencies": {
+    "grunt": "^1.4.1",
+    "grunt-contrib-uglify": "^5.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-sass": "^3.1.0",
+    "load-grunt-tasks": "^5.1.0",
+    "node-sass": "^6.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Malitar/Calculator.git"
+  },
+  "author": "Alexander Symanzik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Malitar/Calculator/issues"
+  },
+  "homepage": "https://github.com/Malitar/Calculator#readme"
+}
