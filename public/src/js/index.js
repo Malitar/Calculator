@@ -84,10 +84,21 @@ function display(calcInput){
             const newInput = globalInput.split(" ");            
             let result = operator(newInput[0], newInput[2], newInput[1]);
             console.table(newInput);
+            
+            for(let i = 0; i < newInput.length; i++){
+                if(i > 2 && i % 2 == 1){
+                    /* operator = ungerade
+                    num2 = gerade 
+                    Abbruch bei i = gerade -2 */
+                    result = operator(result, newInput[i+1], newInput[i]);
+                    console.table(newInput);
+                }
+            }
             globalInput = result;
             update(globalInput);
-            resetter = true;
+            resetter= true;
             break;
+
         default: 
             if(resetter === true){
                 globalInput = ``;
