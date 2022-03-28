@@ -53,8 +53,6 @@ function divide(num1, num2) {
  * @param {*} operator 
  */
 const operator = function (num1, num2, operator) {
-    //operator = operator.toString();
-    //operator = adjustOperator(operator);
     num1 = parseInt(num1);
     num2 = parseInt(num2);
     switch (operator) {
@@ -71,43 +69,68 @@ const operator = function (num1, num2, operator) {
     }
 };
 
-function display(calcInput){
+/**
+ * Function to differentiate between input values
+ * 
+ * @param {string} calcInput 
+ */
+function display(calcInput) {
 
     const input = calcInput.target.getAttribute("data-key");
-    switch(input) {
-        case 'reset': 
+
+    switch (input) {
+        case 'reset':
             globalInput = ``;
             clear();
             resetter = false;
             break;
         case ` = `:
-            const newInput = globalInput.split(" ");            
+            const newInput = globalInput.split(" ");
             let result = operator(newInput[0], newInput[2], newInput[1]);
-            console.table(newInput);
-            
-            for(let i = 0; i < newInput.length; i++){
-                if(i > 2 && i % 2 == 1){
-                    /* operator = ungerade
-                    num2 = gerade 
-                    Abbruch bei i = gerade -2 */
-                    result = operator(result, newInput[i+1], newInput[i]);
-                    console.table(newInput);
-                }
-            }
             globalInput = result;
             update(globalInput);
-            resetter= true;
+            resetter = true;
+            countOperator = 0;
             break;
 
-        default: 
-            if(resetter === true){
+        default:
+            if (resetter === true) {
                 globalInput = ``;
                 clear();
                 resetter = false;
             }
-            globalInput += input;
-            console.table(`${globalInput}`);
-            update(globalInput);
+
+            switch (input) {
+                case ' + ':
+                    countOperator += 1;
+                    break;
+                case ' - ':
+                    countOperator += 1;
+                    break;
+                case ' * ':
+                    countOperator += 1;
+                    break;
+                case ' / ':
+                    countOperator += 1;
+                    break;
+            }
+
+            if (countOperator == 2) {
+                countOperator = 1;
+                clear();
+                const newInput = globalInput.split(" ");
+                console.table(`New Input: ${newInput}`);
+                let result = operator(newInput[0], newInput[2], newInput[1]);
+                globalInput = `${result}` + `${input}`;
+                console.log(`GlobalInput: ${globalInput}`);
+                update(globalInput);
+
+            } else {
+                globalInput += input;
+                update(globalInput);
+                console.log(`GlobalInput 2: ${globalInput}`);
+            }
+        break;
     }
 }
 
@@ -115,7 +138,7 @@ function display(calcInput){
 function update(userInput) {
     const currentInput = document.querySelector('.display');
     let inputchild = document.createElement('span');
-    if(currentInput.hasChildNodes()){
+    if (currentInput.hasChildNodes()) {
         clear();
     }
     inputchild.textContent = userInput;
@@ -125,15 +148,18 @@ function update(userInput) {
 /**
  * Function to clear current input on display
  */
-function clear(){
+function clear() {
     const clear = document.querySelector('.display');
     const child = clear.lastElementChild;
-    if(clear.hasChildNodes()){
+    if (clear.hasChildNodes()) {
         clear.removeChild(child);
     }
+
 }
 
 const calculatorBtn = document.querySelectorAll('button');
 let globalInput = ``;
 let resetter = false;
+let inputCounter = 0;
+let countOperator = 0;
 calculatorBtn.forEach(btn => btn.addEventListener('click', display));
