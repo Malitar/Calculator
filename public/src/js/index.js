@@ -78,6 +78,8 @@ function display(calcInput){
             globalInput = ``;
             clear();
             break;
+        case `=`:
+            
         default: 
             globalInput += input;
             console.table(`${globalInput}`);
@@ -87,48 +89,26 @@ function display(calcInput){
 
 
 function update(userInput) {
-    /**
-     * [] get user input 
-     * [] get divs to manipulate
-     * [] update userInput => string to array
-     * [] string to array => 3 variablen
-     * [] display input
-     */
-    
-    console.log(userInput);
     const currentInput = document.querySelector('.display');
     let inputchild = document.createElement('span');
     if(currentInput.hasChildNodes()){
         clear();
     }
- 
     inputchild.textContent = userInput;
-    console.log(inputchild);
     currentInput.appendChild(inputchild);
-    
 }
 
+/**
+ * Function to clear current input on display
+ */
 function clear(){
     const clear = document.querySelector('.display');
     const child = clear.lastElementChild;
     if(clear.hasChildNodes()){
         clear.removeChild(child);
     }
-    
 }
 
-function reset() {
-    const reset = document.querySelector(`.display`);
-
-}
-
-/* 
-console.log(operator(1, 2, '+'));
-console.log(operator(1, 2, '-'));
-console.log(operator(4, 2, '*'));
-console.log(operator(4, 2, '/'));
-console.log(operator(4, 2, '12'));
- */
 const calculatorBtn = document.querySelectorAll('button');
 let globalInput = ``;
 calculatorBtn.forEach(btn => btn.addEventListener('click', display));
