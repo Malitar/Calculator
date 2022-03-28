@@ -57,13 +57,13 @@ const operator = function (num1, num2, operator) {
     num2 = parseInt(num2);
     switch (operator) {
         case `+`:
-            return add(num1, num2);
+            return add(num1, num2).toFixed(6);
         case `-`:
-            return sub(num1, num2);
+            return sub(num1, num2).toFixed(6);
         case `*`:
-            return multiply(num1, num2);
+            return multiply(num1, num2).toFixed(6);
         case `/`:
-            return divide(num1, num2);
+            return divide(num1, num2).toFixed(6);
         default:
             return console.log(`${operator} is not an operator`);
     }
@@ -85,12 +85,18 @@ function display(calcInput) {
             resetter = false;
             break;
         case ` = `:
-            const newInput = globalInput.split(" ");
-            let result = operator(newInput[0], newInput[2], newInput[1]);
-            globalInput = result;
-            update(globalInput);
-            resetter = true;
-            countOperator = 0;
+            if(countOperator == 1){
+                const newInput = globalInput.split(" ");
+                let result = operator(newInput[0], newInput[2], newInput[1]);
+                if(newInput[2] == 0 && newInput[1] == '/'){
+                    alert(`You can't divide by 0. Start with operator again`);
+                }
+                globalInput = result;
+                update(globalInput);
+                resetter = true;
+                countOperator = 0;
+            }
+            
             break;
 
         default:
@@ -120,11 +126,14 @@ function display(calcInput) {
                 clear();
                 const newInput = globalInput.split(" ");
                 console.table(`New Input: ${newInput}`);
-                let result = operator(newInput[0], newInput[2], newInput[1]);
-                globalInput = `${result}` + `${input}`;
-                console.log(`GlobalInput: ${globalInput}`);
-                update(globalInput);
-
+                if(newInput[2] == 0 && newInput[1] == '/'){
+                    alert(`You can't divide by 0. Start with operator again`);
+                }
+                    let result = operator(newInput[0], newInput[2], newInput[1]);
+                    globalInput = `${result}` + `${input}`;
+                    console.log(`GlobalInput: ${globalInput}`);
+                    update(globalInput);
+                
             } else {
                 globalInput += input;
                 update(globalInput);
