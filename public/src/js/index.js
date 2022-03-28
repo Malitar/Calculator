@@ -53,9 +53,10 @@ function divide(num1, num2) {
  * @param {*} operator 
  */
 const operator = function (num1, num2, operator) {
-    operator = operator.toString();
-    operator = adjustOperator(operator);
-    
+    //operator = operator.toString();
+    //operator = adjustOperator(operator);
+    num1 = parseInt(num1);
+    num2 = parseInt(num2);
     switch (operator) {
         case `+`:
             return add(num1, num2);
@@ -77,10 +78,22 @@ function display(calcInput){
         case 'reset': 
             globalInput = ``;
             clear();
+            resetter = false;
             break;
-        case `=`:
-            
+        case ` = `:
+            const newInput = globalInput.split(" ");            
+            let result = operator(newInput[0], newInput[2], newInput[1]);
+            console.table(newInput);
+            globalInput = result;
+            update(globalInput);
+            resetter = true;
+            break;
         default: 
+            if(resetter === true){
+                globalInput = ``;
+                clear();
+                resetter = false;
+            }
             globalInput += input;
             console.table(`${globalInput}`);
             update(globalInput);
@@ -111,4 +124,5 @@ function clear(){
 
 const calculatorBtn = document.querySelectorAll('button');
 let globalInput = ``;
+let resetter = false;
 calculatorBtn.forEach(btn => btn.addEventListener('click', display));
