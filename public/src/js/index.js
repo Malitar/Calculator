@@ -127,7 +127,9 @@ function display(calcInput) {
                 const newInput = globalInput.split(" ");
                 console.table(`New Input: ${newInput}`);
                 if(newInput[2] == 0 && newInput[1] == '/'){
-                    alert(`You can't divide by 0. Start with operator again`);
+                    alert(`You can't divide by 0. Start again`);
+                    clear();
+                    globalInput = ``;
                 }
                     let result = operator(newInput[0], newInput[2], newInput[1]);
                     globalInput = `${result}` + `${input}`;
